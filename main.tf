@@ -47,8 +47,8 @@ resource "azurerm_subnet" "snet-tools-01" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "assoc-tools-01" {
-  subnet_id                 = ["${azurerm_subnet.snet-tools-01.id}"]
-  network_security_group_id = ["${azurerm_network_security_group.nsg-tools-01.id}"]
+  subnet_id                 = "${azurerm_subnet.snet-tools-01.id}"
+  network_security_group_id = "${azurerm_network_security_group.nsg-tools-01.id}"
 }
 ##### Networking End #####
 
