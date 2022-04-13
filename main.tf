@@ -41,7 +41,7 @@ resource "azurerm_subnet" "snet-tools-01" {
   name                 = "snet-sc-cdw-vpt-dev-tools-01"
   resource_group_name  = "rg-sc-cdw-vpt-dev-tools-01"
   virtual_network_name = "vnet-sc-cdw-vpt-dev-tools-01"
-  address_prefix       = ["10.104.1.0/24"]
+  address_prefixes     = ["10.104.1.0/24"]
   enforce_private_link_endpoint_network_policies = true
   service_endpoints    = ["Microsoft.Storage"]
 }
