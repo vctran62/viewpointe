@@ -1,3 +1,11 @@
+provider "azurerm" {
+  subscription_id = "${var.subscriptionId}"  
+  client_id       = "${var.clientId}"
+  client_secret   = "${var.clientSecret}"
+  tenant_id       = "${var.tenantId}"
+  features {}
+}
+
 ##### Create Resource Group - good #####
 resource "azurerm_resource_group" "rg-tools" {
   name     = "rg-sc-cdw-vpt-dev-tools-01"
