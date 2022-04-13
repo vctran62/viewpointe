@@ -39,16 +39,17 @@ resource "azurerm_virtual_network" "vnet-tools-01" {
 #}
 resource "azurerm_subnet" "snet-tools-01" {
   name                 = "snet-sc-cdw-vpt-dev-tools-01"
-  resource_group_name  = "rg-sc-cdw-vpt-dev-tools-01"
-  virtual_network_name = "vnet-sc-cdw-vpt-dev-tools-01"
-  address_prefixes     = ["10.104.1.0/24"]
+  resource_group_name  = "${azurerm_resource_group.rg-tools.name}"
+  virtual_network_name = "${azurerm_virtual_network.vnet-tools-01.name}"
+  address_prefix       = ["10.104.1.0/24"]
   enforce_private_link_endpoint_network_policies = true
   service_endpoints    = ["Microsoft.Storage"]
 }
-#resource "azurerm_subnet_network_security_group_association" "assoc-tools-01" {
-#  subnet_id                 = azurerm_subnet.snet-tools-01.id
-#  network_security_group_id = azurerm_network_security_group.nsg-tools-01.id
-#}
+
+resource "azurerm_subnet_network_security_group_association" "assoc-tools-01" {
+  subnet_id                 = ["${azurerm_subnet.snet-tools-01.id}"]
+  network_security_group_id = ["${azurerm_network_security_group.nsg-tools-01.id}"]
+}
 ##### Networking End #####
 
 
@@ -56,7 +57,7 @@ resource "azurerm_subnet" "snet-tools-01" {
 resource "azurerm_network_interface" "nic-01-sc-vpttools02" {
   name                = "nic-01-sc-vpttools02"
   location            = "eastus"
-  resource_group_name = "rg-sc-cdw-vpt-dev-tools-01"
+  resource_group_name = "${azurerm_resource_group.rg-tools.name}"
 
   ip_configuration {
     name                          = "internal"
